@@ -1,0 +1,25 @@
+{
+  "name": "ghost-stories",
+  "version": "0.0.1",
+  "description": "A small utility library that leverages folktale to make handling resources easier.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/galileopy/ghost-stories.git"
+  },
+  "keywords": [
+    "folktale",
+    "resources",
+    "functional",
+    "adt"
+  ],
+  "author": "Galileo Sánchez",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/galileopy/ghost-stories/issues"
+  },
+  "homepage": "https://github.com/galileopy/ghost-stories#readme"
+}
