@@ -1,8 +1,11 @@
 {
-  "name": "ghost-stories",
+  "name": "@galileopy/ghost-stories",
   "version": "0.0.1",
   "description": "A small utility library that leverages folktale to make handling resources easier.",
   "main": "lib/index.js",
+  "files": [
+    "lib/"
+  ],
   "scripts": {
     "test": "jest"
   },
@@ -21,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/galileopy/ghost-stories/issues"
   },
-  "homepage": "https://github.com/galileopy/ghost-stories#readme"
+  "homepage": "https://github.com/galileopy/ghost-stories#readme",
+  "dependencies": {
+    "folktale": "^2.3.2"
+  }
 }
