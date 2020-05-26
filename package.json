@@ -1,5 +1,5 @@
 {
-  "name": "@galileopy/ghost-stories",
+  "name": "ghost-stories",
   "version": "0.0.1",
   "description": "A small utility library that leverages folktale to make handling resources easier.",
   "main": "lib/index.js",
