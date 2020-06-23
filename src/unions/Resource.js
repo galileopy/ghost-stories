@@ -4,7 +4,7 @@ import assertFunction from "folktale/helpers/assert-function";
 
 // utility functions, maybe to be factored out
 const isNil = (x) => x == null;
-const isEmpty = (x) => x.lenght === 0;
+const isEmpty = (x) => x.length === 0;
 
 // Resource = Query
 const Resource = union("Resource", {
@@ -21,35 +21,6 @@ const Resource = union("Resource", {
     return { messages, params, meta };
   },
 });
-
-function emptyHOF(message) {
-  return function (fn) {
-    assertFunction(message, fn);
-    return this;
-  };
-}
-
-function update(newParams) {
-  const { params } = this;
-  return Resource.Query(Object.assign({}, params, newParams));
-}
-
-function changeParams(newParams) {
-  const { params } = this;
-  return Resource.Empty(Object.assign({}, params, newParams));
-}
-
-function empty() {
-  return Resource.Empty(this.params, this.meta);
-}
-
-function query() {
-  return Resource.Query(this.params, this.meta);
-}
-
-function fail(message) {
-  return Resource.Error([message], this.params, this.meta);
-}
 
 adtMethods(Resource, {
   run: {
@@ -230,6 +201,7 @@ export const mapPromiseBlob = (params) => (promise) =>
 
 Resource.fromError = fromError;
 Resource.fromResult = fromResult;
+Resource.fromBlob = fromBlob;
 Resource.mapPromise = mapPromise;
 Resource.mapPromiseBlob = mapPromiseBlob;
 
@@ -239,3 +211,32 @@ Resource.isQuery = (resource) => Resource.Query.hasInstance(resource);
 Resource.isError = (resource) => Resource.Error.hasInstance(resource);
 
 export default Resource;
+
+function emptyHOF(message) {
+  return function (fn) {
+    assertFunction(message, fn);
+    return this;
+  };
+}
+
+function update(newParams) {
+  const { params } = this;
+  return Resource.Query(Object.assign({}, params, newParams));
+}
+
+function changeParams(newParams) {
+  const { params } = this;
+  return Resource.Empty(Object.assign({}, params, newParams));
+}
+
+function empty() {
+  return Resource.Empty(this.params, this.meta);
+}
+
+function query() {
+  return Resource.Query(this.params, this.meta);
+}
+
+function fail(message) {
+  return Resource.Error([message], this.params, this.meta);
+}
