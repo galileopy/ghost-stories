@@ -8,8 +8,8 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "rollup -c",
-    "prepare": "rollup -c"
+    "build": "browserify -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ] -o dist/bundle.min.js",
+    "prepare": "build"
   },
   "repository": {
     "type": "git",
@@ -35,11 +35,10 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
-    "@rollup/plugin-babel": "^5.0.3",
-    "@rollup/plugin-commonjs": "^13.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.1",
     "@types/jest": "^26.0.0",
     "babel-preset-es2015-rollup": "^3.0.0",
+    "babelify": "^10.0.0",
+    "browserify": "^16.5.1",
     "jest": "^26.0.1",
     "rollup": "^2.17.0",
     "typescript": "^3.9.5"
