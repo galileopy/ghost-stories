@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "browserify -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ] -o dist/bundle.min.js",
+    "build": "browserify -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ] src/index.js -o dist/bundle.min.js",
     "prepare": "npm run build"
   },
   "repository": {
