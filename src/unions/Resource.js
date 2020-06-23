@@ -197,12 +197,6 @@ export const mapPromise = (params) => (promise) =>
 export const mapPromiseBlob = (params) => (promise) =>
   promise.then(fromBlob(params), fromError(params));
 
-Resource.fromError = fromError;
-Resource.fromResult = fromResult;
-Resource.fromBlob = fromBlob;
-Resource.mapPromise = mapPromise;
-Resource.mapPromiseBlob = mapPromiseBlob;
-
 Resource.isEmpty = (resource) => Resource.Empty.hasInstance(resource);
 Resource.isData = (resource) => Resource.Data.hasInstance(resource);
 Resource.isQuery = (resource) => Resource.Query.hasInstance(resource);
