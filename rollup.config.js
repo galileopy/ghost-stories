@@ -20,11 +20,13 @@ export default {
       main: true,
       browser: true,
     }),
+    commonjs({
+      include: "node_modules/**",
+    }),
     babel({
       exclude: "node_modules/**",
       presets: ["@babel/env", "@babel/preset-react"],
     }),
-    commonjs(),
   ],
   treeshake: true,
   external: ["react", "rxjs", "rxjs/operators"],
