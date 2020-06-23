@@ -26,6 +26,6 @@ export default {
     }),
     commonjs(),
   ],
-  treeShaking: true,
+  treeshake: true,
   external: ["react", "rxjs", "rxjs/operators"],
 };
