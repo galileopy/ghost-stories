@@ -1,5 +1,4 @@
-import folktale from "folktale";
-import { union } from "folktale/adt/union/";
+import union from "folktale/adt/union/union";
 import Validation from "folktale/validation/validation";
 import adtMethods from "folktale/helpers/define-adt-methods";
 import assertFunction from "folktale/helpers/assert-function";
