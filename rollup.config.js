@@ -24,7 +24,11 @@ export default {
       exclude: "node_modules/**",
       presets: ["@babel/env", "@babel/preset-react"],
     }),
-    commonjs(),
+    commonjs({
+      namedExports: {
+        "node_modules/folktale/index.js": ["validation"],
+      },
+    }),
   ],
   external: ["react", "rxjs", "rxjs/operators"],
 };

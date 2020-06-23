@@ -1,6 +1,8 @@
-import union from "folktale/adt/union/union";
+import folktale from "folktale";
 import adtMethods from "folktale/helpers/define-adt-methods";
 import assertFunction from "folktale/helpers/assert-function";
+
+const union = folktale.adt.union;
 
 // utility functions, maybe to be factored out
 const isNil = (x) => x == null;

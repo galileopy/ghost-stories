@@ -1,7 +1,9 @@
-import union from "folktale/adt/union/union";
-import Validation from "folktale/validation";
+import folktale from "folktale";
 import adtMethods from "folktale/helpers/define-adt-methods";
 import assertFunction from "folktale/helpers/assert-function";
+const union = folktale.adt.union;
+const Validation = folktale.validation;
+
 import { curry } from "ramda";
 
 // tambien se puede reflejar el estado de la validacion
