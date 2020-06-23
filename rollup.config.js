@@ -15,7 +15,11 @@ export default {
     },
   },
   plugins: [
-    resolve(),
+    resolve({
+      jsnext: true,
+      main: true,
+      browser: true,
+    }),
     babel({
       exclude: "node_modules/**",
       presets: ["@babel/env", "@babel/preset-react"],
