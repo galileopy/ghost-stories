@@ -1,2 +1,2 @@
-export * as resource from "./resource";
-export * as field from "./field";
+export * from "./resource";
+export * from "./field";
