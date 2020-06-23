@@ -12,6 +12,7 @@ export default {
       react: "React",
       rxjs: "rxjs",
       "rxjs/operators": "rxjs.operators",
+      "folktale/validation": "folktale.validation",
     },
   },
   plugins: [
@@ -29,5 +30,5 @@ export default {
     }),
   ],
   treeshake: true,
-  external: ["react", "rxjs", "rxjs/operators"],
+  external: ["react", "rxjs", "rxjs/operators", "folktale/validation"],
 };
