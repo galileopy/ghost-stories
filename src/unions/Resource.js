@@ -6,8 +6,7 @@ import assertFunction from "folktale/helpers/assert-function";
 const isNil = (x) => x == null;
 const isEmpty = (x) => x.length === 0;
 
-// Resource = Query
-const Resource = union("Resource", {
+export const Resource = union("Resource", {
   Query(params, meta) {
     return { params, meta };
   },

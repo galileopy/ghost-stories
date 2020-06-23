@@ -8,13 +8,19 @@ export default {
     file: "./dist/bundle.min.js",
     format: "umd",
     name: "bundle",
+    globals: {
+      react: "React",
+      rxjs: "rxjs",
+      "rxjs/operators": "rxjs.operators",
+    },
   },
   plugins: [
+    resolve(),
     babel({
       exclude: "node_modules/**",
+      presets: ["@babel/env", "@babel/preset-react"],
     }),
-    resolve(),
     commonjs(),
   ],
-  external: ["react", "rxjs"],
+  external: ["react", "rxjs", "rxjs/operators"],
 };
