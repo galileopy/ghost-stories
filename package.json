@@ -1,6 +1,6 @@
 {
   "name": "ghost-stories",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A small utility library that leverages folktale to make handling resources easier.",
   "main": "dist/bundle.min.js",
   "files": [
