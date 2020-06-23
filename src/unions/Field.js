@@ -22,7 +22,6 @@ const Field = union("Field", {
   },
 });
 
-export default Field;
 
 export const fromResult = curry((value, { success, data, messages }) => {
   if (!success) {
@@ -32,14 +31,16 @@ export const fromResult = curry((value, { success, data, messages }) => {
 });
 
 export const fromError = curry((params, error) =>
-  Field.Error([error.message], params)
+Field.Error([error.message], params)
 );
 
 export const mapPromise = curry((params, promise) =>
-  promise.then(fromResult(params), fromError(params))
+promise.then(fromResult(params), fromError(params))
 );
 
 export const toValidation = (field) => field.toValidation();
+
+export default Field;
 
 // TODO: falta una función para salir de error
 adtMethods(Field, {
