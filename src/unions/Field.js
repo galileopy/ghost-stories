@@ -31,20 +31,15 @@ export const fromResult = curry((value, { success, data, messages }) => {
   return Field.ReadOnly(data);
 });
 
-const fromError = curry((params, error) =>
+export const fromError = curry((params, error) =>
   Field.Error([error.message], params)
 );
 
-const mapPromise = curry((params, promise) =>
+export const mapPromise = curry((params, promise) =>
   promise.then(fromResult(params), fromError(params))
 );
 
-const toValidation = (field) => field.toValidation();
-
-Field.fromError = fromError;
-Field.fromResult = fromResult;
-Field.mapPromise = mapPromise;
-Field.toValidation = toValidation;
+export const toValidation = (field) => field.toValidation();
 
 // TODO: falta una función para salir de error
 adtMethods(Field, {
