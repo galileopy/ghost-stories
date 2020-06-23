@@ -1,1 +1,1 @@
-export const FIX_URL = new Symbol("FIX_URL");
+export const FIX_URL = Symbol("FIX_URL");
