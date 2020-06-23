@@ -6,7 +6,7 @@ import assertFunction from "folktale/helpers/assert-function";
 import { curry } from "ramda";
 
 // tambien se puede reflejar el estado de la validacion
-const Field = union("Field", {
+export const Field = union("Field", {
   Editable(value, temp) {
     return { value, temp: temp || value };
   },
@@ -40,7 +40,6 @@ promise.then(fromResult(params), fromError(params))
 
 export const toValidation = (field) => field.toValidation();
 
-export default Field;
 
 // TODO: falta una función para salir de error
 adtMethods(Field, {

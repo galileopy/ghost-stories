@@ -4,7 +4,7 @@ import { flatMap, map, withLatestFrom, filter } from "rxjs/operators";
 
 import { mergeAll } from "ramda";
 
-import Resource from "../unions/Resource";
+import { Resource } from "../unions/Resource";
 
 export const toParams = pipe(
   filter((x) => Resource.Query.hasInstance(x.payload)),

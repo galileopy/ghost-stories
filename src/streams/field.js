@@ -2,7 +2,7 @@ import { pipe } from "rxjs";
 
 import { map, filter, flatMap } from "rxjs/operators";
 
-import Field from "../unions/Field";
+import { Field } from "../unions/Field";
 
 export const toBody = pipe(
   filter((x) => Field.Saving.hasInstance(x.payload)),

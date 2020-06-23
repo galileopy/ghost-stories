@@ -202,7 +202,6 @@ Resource.isData = (resource) => Resource.Data.hasInstance(resource);
 Resource.isQuery = (resource) => Resource.Query.hasInstance(resource);
 Resource.isError = (resource) => Resource.Error.hasInstance(resource);
 
-export default Resource;
 
 function emptyHOF(message) {
   return function (fn) {

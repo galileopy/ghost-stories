@@ -3,12 +3,13 @@
   "version": "0.0.19",
   "description": "A small utility library that leverages folktale to make handling resources easier.",
   "main": "dist/bundle.min.js",
+  "module": "src/index.js",
   "files": [
     "dist/*"
   ],
   "scripts": {
     "test": "jest",
-    "build": "browserify -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ] src/index.js -o dist/bundle.min.js",
+    "build": "webpack",
     "prepare": "npm run build"
   },
   "repository": {
@@ -36,14 +37,13 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
     "@types/jest": "^26.0.0",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "babelify": "^10.0.0",
-    "browserify": "^16.5.1",
+    "babel-loader": "^8.1.0",
     "jest": "^26.0.1",
     "react": "^16.13.1",
-    "rollup": "^2.17.0",
     "rxjs": "^6.5.5",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   },
   "peerDependencies": {
     "react": "^16.13.1",

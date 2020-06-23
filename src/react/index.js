@@ -1,2 +1,4 @@
-export * from "./resource";
-export * from "./field";
+import * as resource from "./resource";
+import * as field from "./field";
+
+export default { resource, field };
