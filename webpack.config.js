@@ -1,9 +1,15 @@
 const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: {
+    bundle: "./src/index.js",
+    "react/resource": "./src/react/resource.js",
+    "react/field": "./src/react/field.js",
+  },
   output: {
-    filename: "bundle.min.js",
+    filename: "[name].min.js",
     path: path.resolve(__dirname, "dist"),
     library: "ghostStories",
     libraryTarget: "umd",
@@ -28,6 +34,10 @@ module.exports = {
       root: "rxjs/operators",
     },
   },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new CopyPlugin({ patterns: [{ from: "src/" }] }),
+  ],
   module: {
     rules: [
       {
