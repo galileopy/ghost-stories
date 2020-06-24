@@ -1,9 +1,8 @@
 import union from "folktale/adt/union/union";
 import adtMethods from "folktale/helpers/define-adt-methods";
 import assertFunction from "folktale/helpers/assert-function";
+import { isNil, isEmpty, curry } from "ramda";
 // utility functions, maybe to be factored out
-const isNil = (x) => x == null;
-const isEmpty = (x) => x.length === 0;
 
 export const Resource = union("Resource", {
   Query(params, meta) {
@@ -178,30 +177,29 @@ adtMethods(Resource, {
   },
 });
 
-export const fromBlob = (params) => (blob) =>
-  Resource.Data(blob, params, null);
+export const fromBlob = curry((params, blob) =>
+  Resource.Data(blob, params, null));
 
-export const fromError = (params) => (error) =>
-  Resource.Error([error.message], params, error);
+export const fromError = curry((params, error) =>
+  Resource.Error([error.message], params, error));
 
-export const fromResult = (params) => (data) => {
+export const fromResult = curry((params, data) => {
   if (isEmpty(data) || isNil(data)) {
     return Resource.Empty(params);
   }
   return Resource.Data(data, params);
-};
+});
 
-export const mapPromise = (params) => (promise) =>
+export const mapPromise = curry(params, promise) =>
   promise.then(fromResult(params), fromError(params));
 
-export const mapPromiseBlob = (params) => (promise) =>
-  promise.then(fromBlob(params), fromError(params));
+export const mapPromiseBlob = curry((params, promise) =>
+  promise.then(fromBlob(params), fromError(params)));
 
 Resource.isEmpty = (resource) => Resource.Empty.hasInstance(resource);
 Resource.isData = (resource) => Resource.Data.hasInstance(resource);
 Resource.isQuery = (resource) => Resource.Query.hasInstance(resource);
 Resource.isError = (resource) => Resource.Error.hasInstance(resource);
-
 
 function emptyHOF(message) {
   return function (fn) {
