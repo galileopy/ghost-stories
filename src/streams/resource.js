@@ -4,7 +4,7 @@ import { flatMap, map, withLatestFrom, filter } from "rxjs/operators";
 
 import { mergeAll } from "ramda";
 
-import { Resource } from "../unions/Resource";
+import { Resource, mapPromise, mapPromiseBlob } from "../unions/Resource";
 
 export const toParams = pipe(
   filter((x) => Resource.Query.hasInstance(x.payload)),
@@ -29,7 +29,7 @@ export const authFromState = (state$) =>
 
 export const makeRequest = (endpoint) =>
   flatMap(({ params, options }) =>
-    Resource.mapPromise(
+    mapPromise(
       params,
       endpoint({ params, options }).then((x) => x.json())
     )
@@ -37,7 +37,7 @@ export const makeRequest = (endpoint) =>
 
 export const makeBlobRequest = (endpoint) =>
   flatMap(({ params, options }) =>
-    Resource.mapPromiseBlob(
+    mapPromiseBlob(
       params,
       endpoint({ params, options })
         .then((res) => res.blob())
