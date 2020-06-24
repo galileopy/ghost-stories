@@ -39,6 +39,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "src/constants.js" },
+        { from: "src/index.js" },
         { from: "src/fetch", to: "fetch" },
         { from: "src/streams", to: "streams" },
         { from: "src/unions", to: "unions" },
