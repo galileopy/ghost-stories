@@ -9,7 +9,7 @@ module.exports = {
     "react/field": "./src/react/field.js",
   },
   output: {
-    filename: "[name].min.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
     library: "ghostStories",
     libraryTarget: "umd",
@@ -36,7 +36,14 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyPlugin({ patterns: [{ from: "src/" }] }),
+    new CopyPlugin({
+      patterns: [
+        { from: "src/constants.js" },
+        { from: "src/fetch", to: "fetch" },
+        { from: "src/streams", to: "streams" },
+        { from: "src/unions", to: "unions" },
+      ],
+    }),
   ],
   module: {
     rules: [
