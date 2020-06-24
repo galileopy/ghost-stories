@@ -40,6 +40,7 @@ module.exports = {
       patterns: [
         { from: "src/constants.js" },
         { from: "src/index.js" },
+        { from: "src/react/index.js", to: "react/index.js" },
         { from: "src/fetch", to: "fetch" },
         { from: "src/streams", to: "streams" },
         { from: "src/unions", to: "unions" },
