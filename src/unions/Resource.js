@@ -190,8 +190,8 @@ export const fromResult = curry((params, data) => {
   return Resource.Data(data, params);
 });
 
-export const mapPromise = curry(params, promise) =>
-  promise.then(fromResult(params), fromError(params));
+export const mapPromise = curry((params, promise) =>
+  promise.then(fromResult(params), fromError(params)));
 
 export const mapPromiseBlob = curry((params, promise) =>
   promise.then(fromBlob(params), fromError(params)));
