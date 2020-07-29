@@ -1,4 +1,5 @@
-import { Resource } from "../../src/unions/Resource";
+import { Resource } from "../../src/unions/TypedResource";
+
 describe("Checking union.Resource", () => {
   it("Resource is defined", () => {
     expect(Resource).toBeDefined();
@@ -16,10 +17,11 @@ describe("Checking union.Resource", () => {
     expect(Resource.Error).toBeDefined();
   });
   it("Resource.is{Data,Empty,Error,Query} works", () => {
-    const error = Resource.Error("a message");
-    const data = Resource.Data("a value");
-    const query = Resource.Query(" a param");
-    const empty = Resource.Empty({});
+    const error = Resource.Error("a message", null, null);
+    const data = Resource.Data("a value", null, null);
+    const query = Resource.Query(" a param", null);
+    const empty = Resource.Empty({}, null);
+
     expect(Resource.isData(data)).toBe(true);
     expect(Resource.isError(data)).toBe(false);
     expect(Resource.isQuery(data)).toBe(false);

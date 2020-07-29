@@ -178,10 +178,12 @@ adtMethods(Resource, {
 });
 
 export const fromBlob = curry((params, blob) =>
-  Resource.Data(blob, params, null));
+  Resource.Data(blob, params, null)
+);
 
 export const fromError = curry((params, error) =>
-  Resource.Error([error.message], params, error));
+  Resource.Error([error.message], params, error)
+);
 
 export const fromResult = curry((params, data) => {
   if (isEmpty(data) || isNil(data)) {
@@ -191,10 +193,19 @@ export const fromResult = curry((params, data) => {
 });
 
 export const mapPromise = curry((params, promise) =>
-  promise.then(fromResult(params), fromError(params)));
+  promise.then(fromResult(params), fromError(params))
+);
 
 export const mapPromiseBlob = curry((params, promise) =>
-  promise.then(fromBlob(params), fromError(params)));
+  promise.then(fromBlob(params), fromError(params))
+);
+
+Resource.fromError = fromError;
+Resource.fromResult = fromResult;
+Resource.fromBlob = fromBlob;
+
+Resource.mapPromise = mapPromise;
+Resource.mapPromiseBlob = mapPromiseBlob;
 
 Resource.isEmpty = (resource) => Resource.Empty.hasInstance(resource);
 Resource.isData = (resource) => Resource.Data.hasInstance(resource);

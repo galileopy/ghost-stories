@@ -1,4 +1,4 @@
-import Resource from "../../src/unions/Resource";
+import { Resource } from "../../src/unions/Resource";
 import { tap, merge } from "ramda";
 const params = { value: "value " };
 const meta = { page: 1 };
