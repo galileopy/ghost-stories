@@ -174,7 +174,7 @@ abstract class ResourceBase {
   }
 }
 
-type ResourceKind = _Query | _Data | _Empty | _Error;
+export type ResourceKind = _Query | _Data | _Empty | _Error;
 
 class _Query extends ResourceBase {
   public readonly isQuery = true;
@@ -264,11 +264,11 @@ export class Resource {
     Resource.Error([error.message], params, error)
   );
 
-  static fromResult = curryN(2, (params, data) => {
+  static fromResult = curryN(2, (params, data): _Data | _Empty => {
     if (isEmpty(data) || isNil(data)) {
-      return Resource.Empty(params, null);
+      return Resource.Empty(params);
     }
-    return Resource.Data(data, params, null);
+    return Resource.Data(data, params);
   });
 
   static mapPromise = curryN(2, (params, promise) =>
