@@ -7,6 +7,7 @@ module.exports = {
     bundle: "./src/index.js",
     "react/resource": "./src/react/resource.js",
     "react/field": "./src/react/field.js",
+    "unions/TypedResource": "./src/unions/TypedResource.ts",
   },
   output: {
     filename: "[name].js",

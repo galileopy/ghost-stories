@@ -17,7 +17,7 @@ describe("Checking union.Resource", () => {
     expect(Resource.Error).toBeDefined();
   });
   it("Resource.is{Data,Empty,Error,Query} works", () => {
-    const error = Resource.Error("a message", null, null);
+    const error = Resource.Error(["a message"], null, null);
     const data = Resource.Data("a value", null, null);
     const query = Resource.Query(" a param", null);
     const empty = Resource.Empty({}, null);
