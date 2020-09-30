@@ -35,6 +35,11 @@ export const makeRequest = (endpoint) =>
     )
   );
 
+export const makeRequestRaw = (endpoint) =>
+  flatMap(({ params, options }) =>
+    mapPromise(params, endpoint({ params, options }))
+  );
+
 export const makeBlobRequest = (endpoint) =>
   flatMap(({ params, options }) =>
     mapPromiseBlob(
