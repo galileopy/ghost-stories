@@ -175,8 +175,26 @@ adtMethods(Resource, {
       return this.value;
     },
   },
+  onData: {
+    Query(fn) {
+      return undefined;
+    },
+    Empty(fn) {
+      return undefined;
+    },
+    Error(fn) {
+      return undefined;
+    },
+    Data(fn) {
+      fn(this.value);
+      return undefined;
+    },
+  },
+  }
+
 });
 
+//TODO add test for onData, considerar que debe retornar onData
 export const fromBlob = curry((params, blob) =>
   Resource.Data(blob, params, null)
 );
