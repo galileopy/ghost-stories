@@ -190,8 +190,6 @@ adtMethods(Resource, {
       return undefined;
     },
   },
-  }
-
 });
 
 //TODO add test for onData, considerar que debe retornar onData
