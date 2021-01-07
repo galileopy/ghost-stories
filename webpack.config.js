@@ -7,6 +7,7 @@ module.exports = {
     bundle: "./src/index.js",
     "react/resource": "./src/react/resource.js",
     "react/field": "./src/react/field.js",
+    "react/validation": "./src/react/validation.js",
     "unions/TypedResource": "./src/unions/TypedResource.ts",
   },
   output: {
