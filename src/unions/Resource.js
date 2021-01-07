@@ -190,6 +190,21 @@ adtMethods(Resource, {
       return undefined;
     },
   },
+  onEmpty: {
+    Query(fn) {
+      return undefined;
+    },
+    Empty(fn) {
+      fn(this.params);
+      return undefined;
+    },
+    Error(fn) {
+      return undefined;
+    },
+    Data(fn) {
+      return undefined;
+    },
+  },
 });
 
 //TODO add test for onData, considerar que debe retornar onData
