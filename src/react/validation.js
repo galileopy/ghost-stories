@@ -7,7 +7,7 @@ export default function (props) {
       return <Success validation={success} value={success.value} />;
     },
     Failure(failure) {
-      return <Failure validation={failure} messages={failure.messages} />;
+      return <Failure validation={failure} messages={failure.value} />;
     },
   });
 }
