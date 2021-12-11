@@ -35,6 +35,11 @@ adtMethods(Resource, {
       }
     },
   },
+  // This run promise function is something I did not
+  // really think very well.
+  // I want all functions to be chainable, but this....
+  // Should I wrap it in a promise to keep consistency???
+  // Should I .... what? remove run promise?
   runPromise: {
     Data: emptyHOF("Resource.Data#runPromise"),
     Empty: emptyHOF("Resource.Empty#runPromise"),
@@ -99,7 +104,12 @@ adtMethods(Resource, {
     Error: emptyHOF("Resource.Error#chain"),
     Data: function chain(f) {
       assertFunction("Resource.Data#chain", f);
-      return f(this);
+      try {
+        // TODO: Check the contract here the result of this should be a new Resource.
+        return f(this);
+      } catch (error) {
+        return Resource.Error([error.message], this.params, this.meta);
+      }
     },
   },
   validate: {
