@@ -11,7 +11,7 @@ const err = (value) => {
 };
 
 const okPromise = (value) => Promise.resolve(value);
-const errPromise = (value) => Promise.reject(new Error(message));
+const errPromise = () => Promise.reject(new Error(message));
 
 const checkParams = (resource) => expect(resource.params).toEqual(params);
 const checkMeta = (resource) => expect(resource.meta).toEqual(meta);

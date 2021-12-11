@@ -2,7 +2,7 @@ import { Resource } from "../../src/unions/Resource";
 import { tap, merge } from "ramda";
 const params = { value: "value " };
 const meta = { page: 1 };
-const value = params;
+const value = { foo: "bar" };
 const message = "This should be an error message";
 
 const ok = (value) => value;
@@ -11,7 +11,7 @@ const err = (value) => {
 };
 
 const okPromise = (value) => Promise.resolve(value);
-const errPromise = (value) => Promise.reject(new Error(message));
+const errPromise = () => Promise.reject(new Error(message));
 
 const checkParams = (resource) => expect(resource.params).toEqual(params);
 const checkMeta = (resource) => expect(resource.meta).toEqual(meta);
@@ -19,65 +19,80 @@ const checkValue = (resource) => expect(resource.value).toEqual(value);
 const checkMessages = (resource) =>
   expect(resource.messages).toContain(message);
 
-describe("Checking union.Resource.Query", () => {
-  const resource = Resource.Query(params, meta);
+describe("Checking union.Resource.Data", () => {
+  const resource = Resource.Data(value, params, meta);
   it("Constructor works", () => {
     checkMeta(resource);
     checkParams(resource);
   });
-  it("Query.run resolves to Data on success, keeps meta and params", () => {
+
+  it("Data.run resolves to Data on success, keeps meta and params", () => {
     const result = resource.run(ok);
     checkParams(result);
     checkMeta(result);
     checkValue(result);
   });
-  it("Query.runPromise resolves to Data on success, keeps meta and params", (done) => {
+
+  it("Data.runPromise does nothing", () => {
     const result = resource.runPromise(okPromise);
-    expect.assertions(3);
-    result
-      .then(tap(checkParams))
-      .then(tap(checkMeta))
-      .then(tap(checkValue))
-      .then(() => done());
+    checkParams(result);
+    checkMeta(result);
+    checkValue(result);
+    expect(result).toEqual(resource);
   });
-  it("Query.run resolves to Error on reject, keeps meta and params", () => {
+
+  it("Data.run does nothing", () => {
     const result = resource.run(err);
     checkParams(result);
     checkMeta(result);
-    checkMessages(result);
+    checkValue(result);
+    expect(result).toEqual(resource);
   });
-  it("Query.runPromise resolves to Error on reject, keeps meta and params", (done) => {
+
+  it("Data.runPromise resolves to Error on reject, keeps meta and params", () => {
     const result = resource.runPromise(errPromise);
-    expect.assertions(3);
-    result
-      .then(tap(checkParams))
-      .then(tap(checkMeta))
-      .then(tap(checkMessages))
-      .then(() => done());
+    checkParams(result);
+    checkMeta(result);
+    checkValue(result);
+    expect(result === resource).toBe(true);
   });
-  it("Query.map does nothing", () => {
-    const result = resource.map(() => "a simple string");
-    expect(result).toEqual(resource);
+
+  it("Data.map alters only the value and not meta & params", () => {
+    const newValue = "a simple string";
+    const result = resource.map(() => newValue);
+    expect(result.value).toEqual(newValue);
+    checkParams(result);
+    checkMeta(result);
   });
-  it("Query.mapParams does nothing", () => {
+
+  it("Data.mapParams alters only the value and not meta & params", () => {
+    const newParams = "a simple string";
     const result = resource.mapParams(() => "a simple string");
-    expect(result).toEqual(resource);
+    checkMeta(result);
+    checkValue(result);
+    expect(result.params).toEqual(newParams);
   });
-  it("Query.mapEmptyParams does nothing", () => {
+
+  it("Data.mapEmptyParams does nothing", () => {
     const result = resource.mapEmptyParams(() => "a simple string");
     expect(result).toEqual(resource);
   });
-  it("Query.chain does nothing", () => {
-    const result = resource.chain(() => Resource.Data("a simple string"));
-    expect(result).toEqual(resource);
+
+  it("Data.chain returns the internal value", () => {
+    const internal = Resource.Data("a simple string");
+    const result = resource.chain(() => internal);
+    expect(result).toEqual(internal);
   });
-  it("Query.validate does nothing", () => {
+
+  it("Data.chain maps to error if fn fails", () => {
     const result = resource.chain(() => {
       throw new Error(message);
     });
-    expect(result).toEqual(resource);
+    expect(Resource.isError(result)).toEqual(true);
+    expect(result.messages).toContain(message);
   });
-  it("Query.update returns a new query with new params", () => {
+
+  it("Data.update returns a new Query with new params", () => {
     const extra = { value2: "another value" };
     const result = resource.update(extra);
     expect(result.params).toEqual(merge(params, extra));
@@ -86,46 +101,70 @@ describe("Checking union.Resource.Query", () => {
     expect(result.messages).toBeUndefined();
     expect(Resource.isQuery(result)).toBe(true);
   });
-  it("Query.changeParams returns a new Query", () => {
+
+  it("Data.changeParams returns a new Empty with merged params", () => {
     const extra = { value2: "another value" };
     const result = resource.changeParams(extra);
     expect(result.params).toEqual(merge(extra, params));
     expect(result.meta).toBeUndefined();
     expect(result.value).toBeUndefined();
     expect(result.messages).toBeUndefined();
-    expect(Resource.isEmpty(result));
+    expect(Resource.isEmpty(result)).toBe(true);
   });
-  it("Query.empty returns a new empty resource", () => {
+
+  it("Data.empty returns a new empty resource", () => {
     const result = resource.empty();
     expect(result.params).toEqual(params);
     expect(result.meta).toEqual(meta);
     expect(result.value).toBeUndefined();
     expect(result.messages).toBeUndefined();
-    expect(Resource.isEmpty(result));
+    expect(Resource.isEmpty(result)).toBe(true);
   });
-  it("Query.query returns a new query", () => {
+
+  it("Data.query returns a new Query", () => {
     const result = resource.query();
     expect(result.params).toEqual(params);
     expect(result.meta).toEqual(meta);
     expect(result.value).toBeUndefined();
     expect(result.messages).toBeUndefined();
-    expect(Resource.isQuery(result));
+    expect(Resource.isQuery(result)).toBe(true);
   });
-  it("Query.fail returns a new error", () => {
+
+  it("Data.fail returns a new error", () => {
     const result = resource.fail(message);
     expect(result.params).toEqual(params);
     expect(result.meta).toEqual(meta);
     expect(result.value).toBeUndefined();
     expect(result.messages).toContain(message);
-    expect(Resource.isError(result));
+    expect(Resource.isError(result)).toBe(true);
   });
-  it("Query.tap does nothing", () => {
+
+  it("Data.tap does nothing", () => {
     const result = resource.tap(() => "some string");
     expect(result).toEqual(resource);
   });
-  it("Query.getDataOr returns a default value", () => {
+
+  it("Data.getDataOr extracts the current value", () => {
     const something = "some string";
     const result = resource.getDataOr(something);
-    expect(result).toEqual(something);
+    expect(result).toEqual(value);
+  });
+
+  it("Data.validate returns data if validate does not throw", () => {
+    const result = resource.validate((v) => {
+      return true;
+    });
+    checkParams(result);
+    checkMeta(result);
+    checkValue(result);
+  });
+
+  it("Data.validate returns an Error if validate throws", () => {
+    const result = resource.validate((v) => {
+      throw new Error(message);
+    });
+    checkParams(result);
+    checkMeta(result);
+    checkMessages(result);
   });
 });
